@@ -1,0 +1,63 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap -->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    </head>
+  
+    <body>
+        {% include 'base.html' %}
+        
+        <div class="container">
+            <div class ="row">
+                <h1>Ações</h1>
+            </div>
+            <div class ="row">
+                <form method="POST" action="" class="form-inline border p-4 mt-2">
+                    <fieldset>
+                        <div class = "form-group">
+                            {{ form_search.search_field.label(class="form-control-label mx-sm-1 mb-2") }}
+                            {{ form_search.search_field(class="form-control mx-sm-1 mb-2") }}
+                        </div>
+                    </fieldset>
+                    {{ form_search.botao_submit_query(class="btn btn-primary mx-sm-1 mb-2") }}
+                </form>
+            </div>
+
+            
+            <hr>
+            {{ pagination.links }}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Data</th>
+                    <th>E-mail</th>
+                    <th>Descrição</th>
+                    <th>ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                    <td>{{ loop.index + (page - 1) * per_page }}</td>
+                    <td>{{ user.date }}</td> 
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.description }}</td>
+                    <td>
+                        <a target="_blank" class="nav-link" href="{{ url_for('reqs', id_req=user.id_requisicao) }}">
+                            {{ user.id_requisicao }}
+                        </a>
+                    </td> 
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+            {{ pagination.links }}
+            </div>
+    </body>
+</html>
