@@ -162,4 +162,4 @@ def webhook():
     # take actions based on the payload
     take_actions_from_status(payload)
     
-    return Response({'status': 'ok'}, status=200)
+    return Response(status=204)
