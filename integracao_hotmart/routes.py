@@ -108,7 +108,6 @@ def acoes():
 
 def make_a_action(email, id_webook, action):
     
-    print(ALL_ACTIONS[action])
     print(ALL_ACTIONS[action]['message'].format(email=email))
     
     base_id = '{action}-' + id_webook
@@ -163,4 +162,4 @@ def webhook():
     # take actions based on the payload
     take_actions_from_status(payload)
     
-    return Response({'status': 'ok'}, status=200, mimetype='application/json')
+    return Response({'status': 'ok'}, status=200)

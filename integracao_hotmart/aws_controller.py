@@ -50,22 +50,4 @@ def db_put_item(payload, table_name, date=True):
     
     response = table.put_item(Item=payload)
     
-    print(response)
-
-
-from uuid import uuid4
-# for i in range(30):
-#     id_payload=str(uuid4())
-#     payload = {
-#     "nome": "zzzz",
-#     "email": "teszzzte@outro.in",
-#     "status": "aprovado",
-#     "valor": 965,
-#     "forma_pagamento": "cartao_credito",
-#     "parcelas": 1
-#     }
-#     db_put_item(payload, id_payload, 'TestTable')
-
-
-
-# print(db_get_items())
+    return None
