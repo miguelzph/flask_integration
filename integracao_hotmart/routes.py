@@ -10,6 +10,7 @@ import json
 from uuid import uuid4
 from integracao_hotmart.aws_controller import db_get_items, db_put_item, db_get_items_by_query
 from integracao_hotmart.static.constants import ALL_ACTIONS
+from random import choices
 
 @app.route('/', methods=['GET', 'POST'])  
 def home():
@@ -109,20 +110,32 @@ def acoes():
 
 def make_a_action(email, id_webook, action):
     
-    print(ALL_ACTIONS[action]['message'].format(email=email))
-    
     base_id = '{action}-' + id_webook
     
     action = ALL_ACTIONS[action]['name']
     
     official_id = base_id.format(action=action)
     
+    # Do action
+    action_sucess = choices([0, 1], weights = [1, 4], k = 1)[0]
+    
+    if action_sucess:
+        print(ALL_ACTIONS[action]['message'].format(email=email))
+        description = ALL_ACTIONS[action]['description']
+        status = 'OK'
+    else:
+        # simula algum erro --> ex: ferramenta de e-mail caiu
+        print(ALL_ACTIONS[action]['message_error'].format(email=email))
+        description = ALL_ACTIONS[action]['description_error']
+        status = 'ERROR'
+    
     action_payload = {
         "code_action-id_requisicao": official_id,
         "id_requisicao":id_webook,
         "email": email,
         "action": action,
-        'description': ALL_ACTIONS[action]['description']
+        'description': description,
+        'status': status
     }
     
     db_put_item(action_payload, 'ActionsTable')
