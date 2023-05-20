@@ -19,13 +19,17 @@ session = boto3.Session(
 
 dynamo_resource = session.resource('dynamodb', region_name=os.getenv("AWS_REGION"))
 
-def db_get_items(table_name):
+
+from functools import lru_cache
+
+@lru_cache(maxsize=1)
+def db_get_items(table_name, caching_aux):
     
     table = dynamo_resource.Table(table_name)
     
     response = table.scan()
     data = response['Items']
-
+    
     while 'LastEvaluatedKey' in response:
         response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
         data.update(response['Items'])

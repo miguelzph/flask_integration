@@ -11,6 +11,9 @@ from uuid import uuid4
 from integracao_hotmart.aws_controller import db_get_items, db_put_item, db_get_items_by_query
 from integracao_hotmart.static.constants import ALL_ACTIONS
 from random import choices
+from datetime import datetime
+
+
 
 @app.route('/', methods=['GET', 'POST'])  
 def home():
@@ -67,10 +70,13 @@ def sair():
 @login_required
 def reqs(id_req):
     
-    users = db_get_items_by_query('WebhookTable', 'id', id_req)
+    result_of_id_query = db_get_items_by_query('WebhookTable', 'id', id_req)
 
-    return jsonify(users)
+    return jsonify(result_of_id_query)
 
+def get_floor_datetime():
+    now = datetime.now()
+    return now.strftime('%Y-%m-%d %H:') + str(now.minute - now.minute % 5)
 
 @app.route('/acoes', methods=['GET', 'POST'])
 @login_required
@@ -87,7 +93,7 @@ def acoes():
     if email_to_search:
         users = db_get_items_by_query('ActionsTable', 'email', email_to_search)
     else:
-        users = db_get_items('ActionsTable')
+        users = db_get_items('ActionsTable', caching_aux=get_floor_datetime())
 
     def get_users(users, offset=0, per_page=10):
         return users[offset: offset + per_page]
