@@ -42,7 +42,15 @@
                             {{ form_login.lembrar_dados(class="form-check-input") }}
                         </div>
                     </fieldset>
-                    {{ form_login.botao_submit_login(class="btn btn-primary mt-2") }}
+                    <div class="text-center">
+                        {{ form_login.botao_submit_login(class="btn btn-primary mt-2 col-8") }}
+                        <div class="mt-2">
+                            Não possui cadastro?
+                            <strong>
+                                <a href="{{ url_for('criarconta') }}" >CADASTRE-SE</a>
+                            </strong>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="col">

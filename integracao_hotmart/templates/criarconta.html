@@ -77,7 +77,15 @@
                             {% endif %}
                         </div>
                     </fieldset>
-                    {{ form_criarconta.botao_submit_criarconta(class="btn btn-primary mt-2") }}
+                    <div class="text-center">
+                        {{ form_criarconta.botao_submit_criarconta(class="btn btn-primary mt-2 col-8") }}
+                        <div class="mt-2">
+                            Já possui cadastro?
+                            <strong>
+                                <a href="{{ url_for('login') }}" >ENTRAR</a>
+                            </strong>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="col">

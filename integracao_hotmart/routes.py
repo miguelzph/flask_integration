@@ -48,7 +48,7 @@ def login():
             if par_next:
                 return redirect((par_next))
             else:
-                return redirect(url_for('acoes'))
+                return redirect(url_for('home'))
         else:
             flash(f'Falha no Login. E-mail ou Senha Incorreto.', 'alert-danger')
     return render_template('login.html', form_login=form_login, traduzir=traduzir)
