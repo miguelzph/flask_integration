@@ -6,8 +6,9 @@ from integracao_hotmart.models import Usuario
 from flask_login import login_user, logout_user, login_required
 from flask_paginate import Pagination, get_page_args
 
-from integracao_hotmart.aws_controller import db_get_items, db_put_item, db_get_items_by_query
+import json
 from uuid import uuid4
+from integracao_hotmart.aws_controller import db_get_items, db_put_item, db_get_items_by_query
 from integracao_hotmart.static.constants import ALL_ACTIONS
 
 @app.route('/', methods=['GET', 'POST'])  
@@ -150,7 +151,8 @@ def take_actions_from_status(payload):
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
-    payload = request.get_json()
+    
+    payload = json.loads(request.get_data())
     
     id_webook = str(uuid4())
     
