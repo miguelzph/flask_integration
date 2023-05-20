@@ -68,8 +68,7 @@ def reqs(id_req):
     users = db_get_items_by_query('WebhookTable', 'id', id_req)
 
     return jsonify(users)
-    
-    
+
 
 @app.route('/acoes', methods=['GET', 'POST'])
 @login_required

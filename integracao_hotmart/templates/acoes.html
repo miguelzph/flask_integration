@@ -15,7 +15,7 @@
                 <h1>Ações</h1>
             </div>
             <div class ="row">
-                <form method="POST" action="" class="form-inline border p-4 mt-2">
+                <form method="POST" action="" class="form-inline border p-3 mt-2">
                     <fieldset>
                         <div class = "form-group">
                             {{ form_search.search_field.label(class="form-control-label mx-sm-1 mb-2") }}
@@ -25,10 +25,8 @@
                     {{ form_search.botao_submit_query(class="btn btn-primary mx-sm-1 mb-2") }}
                 </form>
             </div>
-
-            
             <hr>
-            {{ pagination.links }}
+            
             <div class="table-responsive">
                 <table class="table table-hover">
                 <thead>
@@ -36,8 +34,9 @@
                     <th>#</th>
                     <th>Data</th>
                     <th>E-mail</th>
+                    <th>Ação</th>
                     <th>Descrição</th>
-                    <th>ID</th>
+                    <th>ID da Requisição</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +45,7 @@
                     <td>{{ loop.index + (page - 1) * per_page }}</td>
                     <td>{{ user.date }}</td> 
                     <td>{{ user.email }}</td>
+                    <td>{{ user.action }}</td>
                     <td>{{ user.description }}</td>
                     <td>
                         <a target="_blank" class="nav-link" href="{{ url_for('reqs', id_req=user.id_requisicao) }}">
