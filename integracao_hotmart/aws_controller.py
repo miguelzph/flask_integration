@@ -32,7 +32,7 @@ def db_get_items(table_name, caching_aux):
     
     while 'LastEvaluatedKey' in response:
         response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-        data.update(response['Items'])
+        data.extend(response['Items'])
 
     return sorted(data, key=itemgetter('date'), reverse=True)
 
