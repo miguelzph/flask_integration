@@ -30,9 +30,10 @@ def db_get_items(table_name, caching_aux):
     response = table.scan()
     data = response['Items']
     
-    while 'LastEvaluatedKey' in response:
-        response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-        data.extend(response['Items'])
+    # deixando de fazer paginacao
+    # while 'LastEvaluatedKey' in response:
+    #     response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+    #     data.extend(response['Items'])
 
     return sorted(data, key=itemgetter('date'), reverse=True)
 
